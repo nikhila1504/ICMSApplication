@@ -12,6 +12,7 @@ public class ICMSApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ICMSApplication.class, args);
+		
 	}
 
 	/*
