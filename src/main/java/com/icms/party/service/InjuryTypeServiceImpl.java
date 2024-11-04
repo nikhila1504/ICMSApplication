@@ -23,7 +23,7 @@ public class InjuryTypeServiceImpl {
 	}
 
 	public List<InjuryType> listAllInjuryTypes() {
-		return (List<InjuryType>) injuryTypeRepository.findAll();
+		return injuryTypeRepository.listAllInjuryTypes();
 	}
 
 }

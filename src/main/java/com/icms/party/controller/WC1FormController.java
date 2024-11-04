@@ -15,12 +15,20 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.icms.party.entity.BodyPartType;
 import com.icms.party.entity.Claim;
 import com.icms.party.entity.ClaimParty;
+import com.icms.party.entity.Claimant;
+import com.icms.party.entity.InjuryCauseType;
+import com.icms.party.entity.InjuryType;
 import com.icms.party.entity.NaicsType;
 import com.icms.party.entity.Wc1Form;
+import com.icms.party.service.BodyPartTypeServiceImpl;
 import com.icms.party.service.ClaimPartyServiceImpl;
 import com.icms.party.service.ClaimServiceImpl;
+import com.icms.party.service.ClaimantServiceImpl;
+import com.icms.party.service.InjuryCauseTypeServiceImpl;
+import com.icms.party.service.InjuryTypeServiceImpl;
 import com.icms.party.service.NaicsTypeServiceImpl;
 import com.icms.party.service.Wc1FormServiceImpl;
 
@@ -40,7 +48,19 @@ public class WC1FormController {
 	private ClaimServiceImpl claimService;
 
 	@Autowired
+	private ClaimantServiceImpl claimantService;
+
+	@Autowired
 	private NaicsTypeServiceImpl naicsTypeService;
+
+	@Autowired
+	private InjuryTypeServiceImpl injuryTypeService;
+
+	@Autowired
+	private InjuryCauseTypeServiceImpl injuryCauseTypeService;
+
+	@Autowired
+	private BodyPartTypeServiceImpl bodyPartTypeService;
 
 	@Autowired
 	private ClaimPartyServiceImpl claimPartyService;
@@ -79,10 +99,24 @@ public class WC1FormController {
 	}
 
 	@GetMapping(value = "/{id}")
+	@ApiOperation(value = "get WC1Form by id")
+	@PreAuthorize("hasRole('ADMIN')or hasRole('USER')")
+	public Wc1Form getWC1FormById(@PathVariable Long id) {
+		return wc1FormService.getWc1FormById(id);
+	}
+
+	@GetMapping(value = "/claimId/{id}")
 	@ApiOperation(value = "get Claim by id")
 	@PreAuthorize("hasRole('ADMIN')or hasRole('USER')")
 	public Claim getClaimById(@PathVariable Long id) {
 		return claimService.getClaimById(id);
+	}
+
+	@GetMapping(value = "/claimantId/{id}")
+	@ApiOperation(value = "get Claim by id")
+	@PreAuthorize("hasRole('ADMIN')or hasRole('USER')")
+	public Claimant getClaimantById(@PathVariable Long id) {
+		return claimantService.getClaimantById(id);
 	}
 
 	@GetMapping(value = "/claim/{claimNo}")
@@ -94,6 +128,13 @@ public class WC1FormController {
 		return claim;
 	}
 
+	@GetMapping(value = "/claimant/{claimantId}")
+	@ApiOperation(value = "get Claim by claimNo")
+	@PreAuthorize("hasRole('ADMIN')or hasRole('USER')")
+	public List<Claim> getClaimByClaimantId(@PathVariable Long claimantId) {
+		return claimService.getClaimByClaimantId(claimantId);
+	}
+	
 	@GetMapping("/getAllNaicsTypes")
 	@ApiOperation(value = "get all Naics Types")
 	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
@@ -101,10 +142,39 @@ public class WC1FormController {
 		return naicsTypeService.listAllNaicsTypes();
 	}
 
-	@GetMapping("/claimParty/{id}")
-	@ApiOperation(value = "get ClaimParty by claimId")
-	@PreAuthorize("hasRole('ADMIN')or hasRole('USER')")
-	public List<ClaimParty> getClaimPartyByClaimId(@PathVariable Long id) {
-		return claimPartyService.getClaimPartyByClaimId(id);
+	@GetMapping("/getAllInjuryTypes")
+	@ApiOperation(value = "get all Injury Types")
+	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+	public List<InjuryType> listAllInjuryTypes() {
+		return injuryTypeService.listAllInjuryTypes();
 	}
+
+	@GetMapping("/getAllInjuryCauseTypes")
+	@ApiOperation(value = "get all InjuryCause Types")
+	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+	public List<InjuryCauseType> listAllInjuryCauseTypes() {
+		return injuryCauseTypeService.listAllInjuryCauseTypes();
+	}
+
+	@GetMapping("/getAllBodyPartTypes")
+	@ApiOperation(value = "get all BodyPart Types")
+	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+	public List<BodyPartType> listAllBodyPartTypes() {
+		return bodyPartTypeService.listAllBodyPartTypes();
+	}
+//
+//	@GetMapping("/claimParty/{claimId}")
+//	@ApiOperation(value = "get ClaimParty by claimId")
+//	@PreAuthorize("hasRole('ADMIN')or hasRole('USER')")
+//	public List<ClaimParty> getClaimPartyByClaimId(@PathVariable(value = "claimId") Long claimId) {
+//		return claimPartyService.getClaimPartyByClaimId(claimId);
+//	}
+
+	@GetMapping(value = "/claimPartyId/{claimId}")
+	@ApiOperation(value = "get ClaimParty by id")
+	@PreAuthorize("hasRole('ADMIN')or hasRole('USER')")
+	public List<ClaimParty> getClaimPartyByClaimId(@PathVariable Long claimId) {
+		return claimPartyService.getClaimPartyByClaimId(claimId);
+	}
+
 }

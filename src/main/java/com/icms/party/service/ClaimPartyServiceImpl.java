@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.icms.party.entity.Claim;
 import com.icms.party.entity.ClaimParty;
+import com.icms.party.entity.Claimant;
 import com.icms.party.repository.ClaimPartyRepository;
 import com.icms.party.repository.ClaimRepository;
 
@@ -23,9 +24,8 @@ public class ClaimPartyServiceImpl {
 		return claimPartyRepository.findById(id).orElse(null);
 	}
 
-	public List<ClaimParty> getClaimPartyByClaimId(Long claimId) {
-//		Claim claim = claimRepository.findById(claimId).orElseThrow(() -> new RuntimeException("Claim not found"));
-		return claimPartyRepository.findByClaimId(claimId);
+	public List<ClaimParty> getClaimPartyByClaimId(Long id) {
+		Claim claim = claimRepository.findById(id).orElse(null);
+		return claimPartyRepository.findClaimPartyByClaim(claim);
 	}
-
 }

@@ -23,8 +23,7 @@ public class Wc1FormServiceImpl {
 	private ClaimDocumentRepository claimDocumentRepository;
 
 	public Wc1Form saveWc1Form(Wc1Form wc1Form) {
-		Wc1Form stu = wc1FormRepository.save(wc1Form);
-		return stu;
+		return wc1FormRepository.save(wc1Form);
 	}
 
 	public Wc1Form getWc1FormById(Long id) {
