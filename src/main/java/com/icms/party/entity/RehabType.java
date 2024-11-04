@@ -7,26 +7,24 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 //import org.hibernate.annotations.Immutable;
 
 /**
- * The persistent class for the INJURY_TYPE database table.
+ * The persistent class for the REHAB_TYPE database table.
  * 
  */
 @Entity
-@Table(schema = "ICMS", name = "INJURY_TYPE")
-public class InjuryType extends BaseEntity implements Type, Serializable {
+@Table(schema = "ICMS", name = "REHAB_TYPE")
+public class RehabType extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name = "INJURY_TYPE_ID_GENERATOR", sequenceName = "INJURY_TYPE_SEQ", allocationSize = 1, initialValue = 1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "INJURY_TYPE_ID_GENERATOR")
-	@Column(name = "INJURY_TYPE_ID")
+	@SequenceGenerator(name = "REHAB_TYPE_ID_GENERATOR", sequenceName = "REHAB_TYPE_SEQ", allocationSize = 1, initialValue = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "REHAB_TYPE_ID_GENERATOR")
+	@Column(name = "REHAB_TYPE_ID")
 	private Long id;
 
 	@Column(name = "CODE")
@@ -35,7 +33,7 @@ public class InjuryType extends BaseEntity implements Type, Serializable {
 	@Column(name = "DESCRIPTION")
 	private String description;
 
-	public InjuryType() {
+	public RehabType() {
 	}
 
 	public Long getId() {
@@ -68,9 +66,9 @@ public class InjuryType extends BaseEntity implements Type, Serializable {
 			return true;
 		if (obj == null)
 			return false;
-		if (!(obj instanceof InjuryType))
+		if (!(obj instanceof RehabType))
 			return false;
-		InjuryType other = (InjuryType) obj;
+		RehabType other = (RehabType) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

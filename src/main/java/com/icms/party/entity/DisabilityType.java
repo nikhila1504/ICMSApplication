@@ -7,8 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -20,12 +18,6 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(schema = "ICMS", name = "DISABILITY_TYPE")
-//@Immutable
-@NamedQueries({
-		@NamedQuery(name = "DisabilityType.findAll", query = "select dt from DisabilityType dt where dt.recordStatus = 1 order by dt.displayOrder asc"),
-		@NamedQuery(name = "DisabilityType.findByCode", query = "select dt from DisabilityType dt where dt.code =:code ")
-
-})
 public class DisabilityType extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 

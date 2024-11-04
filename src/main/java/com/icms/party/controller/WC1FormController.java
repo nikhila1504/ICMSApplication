@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,9 +16,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.icms.party.entity.Claim;
-import com.icms.party.entity.User;
+import com.icms.party.entity.ClaimParty;
+import com.icms.party.entity.NaicsType;
 import com.icms.party.entity.Wc1Form;
+import com.icms.party.service.ClaimPartyServiceImpl;
 import com.icms.party.service.ClaimServiceImpl;
+import com.icms.party.service.NaicsTypeServiceImpl;
 import com.icms.party.service.Wc1FormServiceImpl;
 
 import io.swagger.annotations.Api;
@@ -37,19 +39,23 @@ public class WC1FormController {
 	@Autowired
 	private ClaimServiceImpl claimService;
 
+	@Autowired
+	private NaicsTypeServiceImpl naicsTypeService;
+
+	@Autowired
+	private ClaimPartyServiceImpl claimPartyService;
+
 	public Claim loadClaimByClaimNo(String claimNo) throws UsernameNotFoundException {
 		claimNo = "2024000100";
 		Claim claim = claimService.getClaimByClaimNo(claimNo);
-        if(claim == null){
-            throw new UsernameNotFoundException("Invalid Claim No.");
-        }
-        else {
-        	System.out.println("claim..."+claim.getId());
-        }
-        return claim;
-    }
+		if (claim == null) {
+			throw new UsernameNotFoundException("Invalid Claim No.");
+		} else {
+			System.out.println("claim..." + claim.getId());
+		}
+		return claim;
+	}
 
-	 
 	public List<Object> orderFallback(Throwable t) {
 		List<Object> parties = new ArrayList<>();
 		parties.add("Wc1Form-Detail service unavailable!");
@@ -78,14 +84,27 @@ public class WC1FormController {
 	public Claim getClaimById(@PathVariable Long id) {
 		return claimService.getClaimById(id);
 	}
-	
 
 	@GetMapping(value = "/claim/{claimNo}")
 	@ApiOperation(value = "get Claim by claimNo")
 	@PreAuthorize("hasRole('ADMIN')or hasRole('USER')")
 	public Claim getClaimByClaimNo(@PathVariable String claimNo) {
 		Claim claim = claimService.getClaimByClaimNo(claimNo);
-		System.out.println("claim..."+claim.getId());
+		System.out.println("claim..." + claim.getId());
 		return claim;
+	}
+
+	@GetMapping("/getAllNaicsTypes")
+	@ApiOperation(value = "get all Naics Types")
+	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+	public List<NaicsType> listAllNaicsTypes() {
+		return naicsTypeService.listAllNaicsTypes();
+	}
+
+	@GetMapping("/claimParty/{id}")
+	@ApiOperation(value = "get ClaimParty by claimId")
+	@PreAuthorize("hasRole('ADMIN')or hasRole('USER')")
+	public List<ClaimParty> getClaimPartyByClaimId(@PathVariable Long id) {
+		return claimPartyService.getClaimPartyByClaimId(id);
 	}
 }

@@ -7,8 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -17,41 +15,34 @@ import javax.persistence.Table;
  * 
  */
 @Entity
-@Table(schema = "ICMS", name="BODY_PART_TYPE")
-@NamedQueries(
-{
-	@NamedQuery(name="BodyPartType.findAll", query="select bp from BodyPartType bp where bp.recordStatus = 1 and bp.georgiaPI = false order by bp.description asc"),
-	@NamedQuery(name="BodyPartType.findByCode", query="select bp from BodyPartType bp where bp.code =:code and bp.recordStatus = 1 "),
-	@NamedQuery(name="BodyPartType.findAllByPermanentImpairment", query="select bp from BodyPartType bp where bp.permanentImpairment = true and bp.georgiaPI = false and bp.recordStatus = 1 order by bp.description asc"),
-	@NamedQuery(name="BodyPartType.findAllByGeorgiaPermanentImpairment", query="select bp from BodyPartType bp where bp.permanentImpairment = true and bp.georgiaPI = true and bp.recordStatus = 1 order by bp.displayOrder asc")
-})
-public class BodyPartType extends BaseEntity implements Type,Serializable {
+@Table(schema = "ICMS", name = "BODY_PART_TYPE")
+public class BodyPartType extends BaseEntity implements Type, Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@SequenceGenerator(name = "BODY_PART_TYPE_ID_GENERATOR", sequenceName = "BODY_PART_TYPE_SEQ", allocationSize = 1, initialValue = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "BODY_PART_TYPE_ID_GENERATOR")
-	@Column(name="BODY_PART_TYPE_ID")
+	@Column(name = "BODY_PART_TYPE_ID")
 	private Long id;
 
-	@Column(name="CODE")
+	@Column(name = "CODE")
 	private String code;
 
-	@Column(name="DESCRIPTION")
+	@Column(name = "DESCRIPTION")
 	private String description;
 
-	@Column(name="MAXIMUM_WEEKS")
+	@Column(name = "MAXIMUM_WEEKS")
 	private Integer maximumWeeks;
-	
-	@Column(name="IS_PERMANENT_IMPAIRMENT")
+
+	@Column(name = "IS_PERMANENT_IMPAIRMENT")
 	private Boolean permanentImpairment;
-	
-	@Column(name="IS_GEORGIA_PI")
+
+	@Column(name = "IS_GEORGIA_PI")
 	private Boolean georgiaPI;
 
 	@Column(name = "DISPLAY_ORDER")
 	private Integer displayOrder;
-	
+
 	public BodyPartType() {
 	}
 
@@ -78,14 +69,14 @@ public class BodyPartType extends BaseEntity implements Type,Serializable {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
+
 	public Integer getMaximumWeeks() {
 		return maximumWeeks;
 	}
 
 	public void setMaximumWeeks(Integer maximumWeeks) {
 		this.maximumWeeks = maximumWeeks;
-	}	
+	}
 
 	public Boolean getPermanentImpairment() {
 		return permanentImpairment;

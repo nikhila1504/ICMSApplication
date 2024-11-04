@@ -7,8 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -20,11 +18,6 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(schema = "ICMS", name = "NAICS_TYPE")
-//@Immutable
-@NamedQueries({
-	@NamedQuery(name = "NaicsType.findAll", query = "select nc from NaicsType nc where nc.recordStatus = 1 order by nc.description asc"),
-	@NamedQuery(name = "NaicsType.findByCode", query = "select nc from NaicsType nc where nc.code = :code ")
-})
 public class NaicsType extends BaseEntity implements Type, Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -42,7 +35,7 @@ public class NaicsType extends BaseEntity implements Type, Serializable {
 
 	@Column(name = "VERSION")
 	private int version;
-	
+
 	public NaicsType() {
 	}
 
