@@ -7,7 +7,6 @@ import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -57,11 +56,11 @@ public class Party extends BaseEntity implements Serializable, Comparable<Party>
 	private String sbwcNumber;
 
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "ADDRESS_ID")
+	@JoinColumn(name = "ADDRESS_ID", nullable = false)
 	private Address address;
 
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "CONTACT_ID")
+	@JoinColumn(name = "CONTACT_ID", nullable = false)
 	private Contact contact;
 
 	@ManyToOne
@@ -177,11 +176,11 @@ public class Party extends BaseEntity implements Serializable, Comparable<Party>
 	@Column(name = "IS_DBA")
 	private Boolean isDba = false;
 
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "BOARD_CORR_ADDRESS_ID")
 	private Address boardCorrespondenceAddress;
 
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "BOARD_CORR_CONTACT_ID")
 	private Contact boardCorrespondenceContact;
 
@@ -273,21 +272,21 @@ public class Party extends BaseEntity implements Serializable, Comparable<Party>
 		this.select = select;
 	}
 
-	public Collection<Party> getInsuranceCollection() {
-		return insuranceCollection;
-	}
-
-	public void setInsuranceCollection(Collection<Party> insuranceCollection) {
-		this.insuranceCollection = insuranceCollection;
-	}
-
-	public Collection<Party> getClaimOfficeCollection() {
-		return claimOfficeCollection;
-	}
-
-	public void setClaimOfficeCollection(Collection<Party> claimOfficeCollection) {
-		this.claimOfficeCollection = claimOfficeCollection;
-	}
+//	public Collection<Party> getInsuranceCollection() {
+//		return insuranceCollection;
+//	}
+//
+//	public void setInsuranceCollection(Collection<Party> insuranceCollection) {
+//		this.insuranceCollection = insuranceCollection;
+//	}
+//
+//	public Collection<Party> getClaimOfficeCollection() {
+//		return claimOfficeCollection;
+//	}
+//
+//	public void setClaimOfficeCollection(Collection<Party> claimOfficeCollection) {
+//		this.claimOfficeCollection = claimOfficeCollection;
+//	}
 
 	public String getDocumentType() {
 		return documentType;

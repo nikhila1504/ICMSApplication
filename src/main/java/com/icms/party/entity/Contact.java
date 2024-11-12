@@ -12,8 +12,6 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.hibernate.annotations.ColumnTransformer;
-
 import com.icms.party.util.DataConversionUtil;
 
 /**
@@ -39,17 +37,14 @@ public class Contact extends BaseEntity implements Serializable {
 
 	@Size(max = 100, message = "Contact Person should not be more than 100 characters")
 	@Column(name = "PREFERRED_CONTACT_NAME")
-	@ColumnTransformer(forColumn = "PREFERRED_CONTACT_NAME", write = "TRIM(UPPER(?))")
 	private String preferredContactName;
 
 	@Size(max = 100, message = "Primary Email should not be more than 100 characters")
 	@Column(name = "PRIMARY_EMAIL")
-	@ColumnTransformer(forColumn = "PRIMARY_EMAIL", write = "TRIM(LOWER(?))", read = "LOWER(PRIMARY_EMAIL)")
 	private String primaryEmail;
 
 	@Size(max = 100, message = "Secondary Email should not be more than 100 characters")
 	@Column(name = "SECONDARY_EMAIL")
-	@ColumnTransformer(forColumn = "SECONDARY_EMAIL", write = "TRIM(LOWER(?))", read = "LOWER(SECONDARY_EMAIL)")
 	private String secondaryEmail;
 
 	@Column(name = "PRIMARY_PHONE")

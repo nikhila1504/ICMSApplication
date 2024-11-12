@@ -27,19 +27,19 @@ public class ClaimParty extends BaseEntity implements Serializable {
 	@SequenceGenerator(name = "CLAIM_PARTY_ID_GENERATOR", sequenceName = "CLAIM_PARTY_SEQ", allocationSize = 1, initialValue = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CLAIM_PARTY_ID_GENERATOR")
 	@Column(name = "CLAIM_PARTY_ID", nullable = false, unique = true)
-	private Long id;
+	private Long claimPartyId;
 
 	@ManyToOne
 	@JoinColumn(name = "DOCUMENT_ID")
 	private Document document;
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "PARTY_ID")
+	@JoinColumn(name = "PARTY_ID",referencedColumnName = "PARTY_ID")
 	private Party party;
 
 	// bi-directional many-to-one association to Claim
 	@ManyToOne
-	@JoinColumn(name = "CLAIM_ID")
+	@JoinColumn(name = "CLAIM_ID",referencedColumnName = "CLAIM_ID")
 	private Claim claim;
 
 	@ManyToOne
@@ -102,12 +102,13 @@ public class ClaimParty extends BaseEntity implements Serializable {
 		this.party = party;
 	}
 
-	public Long getId() {
-		return id;
+
+	public Long getClaimPartyId() {
+		return claimPartyId;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setClaimPartyId(Long claimPartyId) {
+		this.claimPartyId = claimPartyId;
 	}
 
 	public Party getParty() {
@@ -262,7 +263,7 @@ public class ClaimParty extends BaseEntity implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((claimPartyId == null) ? 0 : claimPartyId.hashCode());
 		return result;
 	}
 
@@ -275,12 +276,13 @@ public class ClaimParty extends BaseEntity implements Serializable {
 		if (!(obj instanceof ClaimParty))
 			return false;
 		ClaimParty other = (ClaimParty) obj;
-		if (id == null) {
-			if (other.id != null)
+		if (claimPartyId == null) {
+			if (other.claimPartyId != null)
 				return false;
-		} else if (!id.equals(other.id)) {
+		} else if (!claimPartyId.equals(other.claimPartyId)) {
 			return false;
 		}
 		return true;
 	}
+
 }

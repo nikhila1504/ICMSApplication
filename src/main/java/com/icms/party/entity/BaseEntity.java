@@ -20,7 +20,7 @@ import com.icms.party.enums.RecordStatusEnum;
 @EntityListeners(AuditEntityListener.class)
 @DynamicInsert
 @DynamicUpdate
-public abstract class BaseEntity implements Serializable, Identifiable<Long> {
+public abstract class BaseEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -127,31 +127,31 @@ public abstract class BaseEntity implements Serializable, Identifiable<Long> {
 		return recordStatus == RecordStatusEnum.DELETED.getCode();
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (!(obj instanceof BaseEntity))
-			return false;
-		BaseEntity other = (BaseEntity) obj;
-		if (getId() == null) {
-			return false;
-		}
-		return getId().equals(other.getId());
-	}
-
-	@Override
-	public int hashCode() {
-		if (getId() != null) {
-			return getId().hashCode();
-		} else {
-			return super.hashCode();
-		}
-	}
-
-	@Override
-	public String toString() {
-		return this.getClass().getName() + " [id=" + getId() + "]";
-	}
+//	@Override
+//	public boolean equals(Object obj) {
+//		if (this == obj)
+//			return true;
+//		if (!(obj instanceof BaseEntity))
+//			return false;
+//		BaseEntity other = (BaseEntity) obj;
+//		if (getId() == null) {
+//			return false;
+//		}
+//		return getId().equals(other.getId());
+//	}
+//
+//	@Override
+//	public int hashCode() {
+//		if (getId() != null) {
+//			return getId().hashCode();
+//		} else {
+//			return super.hashCode();
+//		}
+//	}
+//
+//	@Override
+//	public String toString() {
+//		return this.getClass().getName() + " [id=" + getId() + "]";
+//	}
 
 }

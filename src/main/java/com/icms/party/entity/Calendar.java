@@ -25,9 +25,9 @@ public class Calendar {
 	private int calendarId;
 	
 	 
-	@OneToOne
-	 private Party_Dummy party;
-	 
+//	@OneToOne
+//	 private Party_Dummy party;
+//	 
 	@JsonManagedReference
 	@OneToMany(mappedBy = "calendar", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Slot> slot;
@@ -153,14 +153,14 @@ public class Calendar {
 	}
 
 
-	public Party_Dummy getParty() {
-		return party;
-	}
-
-
-	public void setParty(Party_Dummy party) {
-		this.party = party;
-	}
+//	public Party_Dummy getParty() {
+//		return party;
+//	}
+//
+//
+//	public void setParty(Party_Dummy party) {
+//		this.party = party;
+//	}
 
 
 

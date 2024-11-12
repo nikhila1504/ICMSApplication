@@ -19,24 +19,32 @@ import com.icms.party.entity.BodyPartType;
 import com.icms.party.entity.Claim;
 import com.icms.party.entity.ClaimParty;
 import com.icms.party.entity.Claimant;
+import com.icms.party.entity.ControvertType;
+import com.icms.party.entity.DisabilityType;
 import com.icms.party.entity.InjuryCauseType;
 import com.icms.party.entity.InjuryType;
 import com.icms.party.entity.NaicsType;
+import com.icms.party.entity.StateType;
+import com.icms.party.entity.TreatmentType;
 import com.icms.party.entity.Wc1Form;
 import com.icms.party.service.BodyPartTypeServiceImpl;
 import com.icms.party.service.ClaimPartyServiceImpl;
 import com.icms.party.service.ClaimServiceImpl;
 import com.icms.party.service.ClaimantServiceImpl;
+import com.icms.party.service.ControvertTypeServiceImpl;
+import com.icms.party.service.DisabilityTypeServiceImpl;
 import com.icms.party.service.InjuryCauseTypeServiceImpl;
 import com.icms.party.service.InjuryTypeServiceImpl;
 import com.icms.party.service.NaicsTypeServiceImpl;
+import com.icms.party.service.StateTypeServiceImpl;
+import com.icms.party.service.TreatmentTypeServiceImpl;
 import com.icms.party.service.Wc1FormServiceImpl;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
-@Api(value = "WC1 Service", description = "WC1 Details", produces = "application/json")
+@Api(value = "WC1 Service", produces = "application/json")
 @CrossOrigin
 @RequestMapping("/wc1")
 public class WC1FormController {
@@ -49,6 +57,9 @@ public class WC1FormController {
 
 	@Autowired
 	private ClaimantServiceImpl claimantService;
+
+	@Autowired
+	private StateTypeServiceImpl stateTypeService;
 
 	@Autowired
 	private NaicsTypeServiceImpl naicsTypeService;
@@ -64,6 +75,15 @@ public class WC1FormController {
 
 	@Autowired
 	private ClaimPartyServiceImpl claimPartyService;
+
+	@Autowired
+	private ControvertTypeServiceImpl controvertTypeServiceImpl;
+
+	@Autowired
+	private TreatmentTypeServiceImpl treatmentTypeServiceImpl;
+
+	@Autowired
+	private DisabilityTypeServiceImpl disabilityTypeServiceImpl;
 
 	public Claim loadClaimByClaimNo(String claimNo) throws UsernameNotFoundException {
 		claimNo = "2024000100";
@@ -134,7 +154,14 @@ public class WC1FormController {
 	public List<Claim> getClaimByClaimantId(@PathVariable Long claimantId) {
 		return claimService.getClaimByClaimantId(claimantId);
 	}
-	
+
+	@GetMapping("/getAllStateTypes")
+	@ApiOperation(value = "get all State Types")
+	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+	public List<StateType> listAllStateTypes() {
+		return stateTypeService.listAllStateTypes();
+	}
+
 	@GetMapping("/getAllNaicsTypes")
 	@ApiOperation(value = "get all Naics Types")
 	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
@@ -162,19 +189,47 @@ public class WC1FormController {
 	public List<BodyPartType> listAllBodyPartTypes() {
 		return bodyPartTypeService.listAllBodyPartTypes();
 	}
-//
-//	@GetMapping("/claimParty/{claimId}")
-//	@ApiOperation(value = "get ClaimParty by claimId")
+
+	@GetMapping("/getAllControvertTypes")
+	@ApiOperation(value = "get all Controvert Types")
+	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+	public List<ControvertType> listAllControvertTypes() {
+		return controvertTypeServiceImpl.listAllControvertTypes();
+	}
+
+	@GetMapping("/getAllTreatmentTypes")
+	@ApiOperation(value = "get all Treatment Types")
+	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+	public List<TreatmentType> listAllTreatmentTypes() {
+		return treatmentTypeServiceImpl.listAllTreatmentTypes();
+	}
+
+	@GetMapping("/getAllDisabilityTypes")
+	@ApiOperation(value = "get all Disability Types")
+	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+	public List<DisabilityType> listAllDisabilityTypes() {
+		return disabilityTypeServiceImpl.listAllDisabilityTypes();
+	}
+
+	@GetMapping("/claimParty/{claimId}")
+	@ApiOperation(value = "get ClaimParty by claimId")
+	@PreAuthorize("hasRole('ADMIN')or hasRole('USER')")
+	public List<ClaimParty> getClaimPartyByClaimId(@PathVariable(value = "claimId") Long claimId) {
+		return claimPartyService.getClaimPartyByClaimId(claimId);
+	}
+
+//	@GetMapping(value = "/claimPartyId/{claimId}")
+//	@ApiOperation(value = "get ClaimParty by id")
 //	@PreAuthorize("hasRole('ADMIN')or hasRole('USER')")
-//	public List<ClaimParty> getClaimPartyByClaimId(@PathVariable(value = "claimId") Long claimId) {
+//	public List<ClaimParty> getClaimPartyByClaimId(@PathVariable Long claimId) {
 //		return claimPartyService.getClaimPartyByClaimId(claimId);
 //	}
 
-	@GetMapping(value = "/claimPartyId/{claimId}")
+	@GetMapping(value = "/claimPartyById/{claimPartyId}")
 	@ApiOperation(value = "get ClaimParty by id")
 	@PreAuthorize("hasRole('ADMIN')or hasRole('USER')")
-	public List<ClaimParty> getClaimPartyByClaimId(@PathVariable Long claimId) {
-		return claimPartyService.getClaimPartyByClaimId(claimId);
+	public ClaimParty getClaimPartyByById(@PathVariable Long claimPartyId) {
+		return claimPartyService.getClaimPartyById(claimPartyId);
 	}
 
 }
