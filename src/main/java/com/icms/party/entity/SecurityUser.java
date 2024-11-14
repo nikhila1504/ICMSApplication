@@ -31,8 +31,6 @@ import com.icms.party.util.DataConversionUtil;
  */
 @Entity
 @Table(schema = "ICMS", name = "SECURITY_USER")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(discriminatorType = DiscriminatorType.STRING)
 public class SecurityUser extends BaseEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
