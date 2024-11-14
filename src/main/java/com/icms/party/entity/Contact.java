@@ -1,16 +1,21 @@
 package com.icms.party.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import org.hibernate.annotations.ColumnTransformer;
 
 import com.icms.party.util.DataConversionUtil;
 
@@ -37,14 +42,17 @@ public class Contact extends BaseEntity implements Serializable {
 
 	@Size(max = 100, message = "Contact Person should not be more than 100 characters")
 	@Column(name = "PREFERRED_CONTACT_NAME")
+	@ColumnTransformer(forColumn = "PREFERRED_CONTACT_NAME", write = "TRIM(UPPER(?))")
 	private String preferredContactName;
 
 	@Size(max = 100, message = "Primary Email should not be more than 100 characters")
 	@Column(name = "PRIMARY_EMAIL")
+	@ColumnTransformer(forColumn = "PRIMARY_EMAIL", write = "TRIM(LOWER(?))")
 	private String primaryEmail;
 
 	@Size(max = 100, message = "Secondary Email should not be more than 100 characters")
 	@Column(name = "SECONDARY_EMAIL")
+	@ColumnTransformer(forColumn = "SECONDARY_EMAIL", write = "TRIM(LOWER(?))")
 	private String secondaryEmail;
 
 	@Column(name = "PRIMARY_PHONE")
@@ -72,6 +80,9 @@ public class Contact extends BaseEntity implements Serializable {
 	@Column(name = "FAX")
 	private String fax;
 
+	@OneToMany(cascade = CascadeType.ALL,mappedBy = "boardCorrespondenceContact")
+	private List<Party> primaryPartyContact;
+	
 	public Contact() {
 	}
 
@@ -180,6 +191,14 @@ public class Contact extends BaseEntity implements Serializable {
 
 	public void setContactPhoneExt(String contactPhoneExt) {
 		this.contactPhoneExt = contactPhoneExt;
+	}
+
+	public List<Party> getPrimaryPartyContact() {
+		return primaryPartyContact;
+	}
+
+	public void setPrimaryPartyContact(List<Party> primaryPartyContact) {
+		this.primaryPartyContact = primaryPartyContact;
 	}
 
 }
