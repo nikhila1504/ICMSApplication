@@ -26,6 +26,7 @@ import com.icms.party.entity.InjuryType;
 import com.icms.party.entity.NaicsType;
 import com.icms.party.entity.StateType;
 import com.icms.party.entity.TreatmentType;
+import com.icms.party.entity.UserProductivityReport;
 import com.icms.party.entity.Wc1Form;
 import com.icms.party.service.BodyPartTypeServiceImpl;
 import com.icms.party.service.ClaimPartyServiceImpl;
@@ -38,6 +39,7 @@ import com.icms.party.service.InjuryTypeServiceImpl;
 import com.icms.party.service.NaicsTypeServiceImpl;
 import com.icms.party.service.StateTypeServiceImpl;
 import com.icms.party.service.TreatmentTypeServiceImpl;
+import com.icms.party.service.UserProductivityReportServiceImpl;
 import com.icms.party.service.Wc1FormServiceImpl;
 
 import io.swagger.annotations.Api;
@@ -84,6 +86,9 @@ public class WC1FormController {
 
 	@Autowired
 	private DisabilityTypeServiceImpl disabilityTypeServiceImpl;
+	
+	@Autowired
+	private UserProductivityReportServiceImpl userProductivityReportServiceImpl;
 
 	public Claim loadClaimByClaimNo(String claimNo) throws UsernameNotFoundException {
 		claimNo = "2024000100";
@@ -230,6 +235,13 @@ public class WC1FormController {
 	@PreAuthorize("hasRole('ADMIN')or hasRole('USER')")
 	public ClaimParty getClaimPartyByById(@PathVariable Long claimPartyId) {
 		return claimPartyService.getClaimPartyById(claimPartyId);
+	}
+	
+	@GetMapping(value = "/userProductiveReport")
+	@ApiOperation(value = "get user ProductiveReport")
+	@PreAuthorize("hasRole('ADMIN')or hasRole('USER')")
+	public List<UserProductivityReport> getUserProductiveReport() {
+		return userProductivityReportServiceImpl.getUserProductivityReport();
 	}
 
 }
