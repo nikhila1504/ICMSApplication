@@ -19,7 +19,7 @@ public class UserProductivityReportServiceImpl {
 	private UserProductivityReportRepository userProductivityReportRepository;
 
 	public List<UserProductivityReport> getUserProductivityReport() {
-		 Pageable pageable = PageRequest.of(0, 500,Sort.by(Sort.Order.desc("userProductivityReportPK.activityDate"))); // 0 is the page number (first page), 500 is the page size
+		 Pageable pageable = PageRequest.of(0, 1000,Sort.by(Sort.Order.desc("userProductivityReportPK.activityDate"))); // 0 is the page number (first page), 500 is the page size
 	        Page<UserProductivityReport> page = userProductivityReportRepository.findAll(pageable);
 	        return page.getContent();
 	}
