@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.icms.party.entity.ClaimParty;
 import com.icms.party.entity.Slot;
 import com.icms.party.service.SlotServiceImpl;
 
@@ -68,6 +69,11 @@ public class SlotController {
 	}
 	
 	
-
+	@GetMapping("/listAllSlots/{calendarId}")
+	@ApiOperation(value = "get Slots by calendarId")
+	@PreAuthorize("hasRole('ADMIN')or hasRole('USER')")
+	public List<Slot> getSlotsByCalendarId(@PathVariable(value = "calendarId") int calendarId) {
+		return slotService.findByCalendarId(calendarId);
+	}
 
 }

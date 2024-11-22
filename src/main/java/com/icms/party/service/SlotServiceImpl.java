@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.icms.party.entity.ClaimParty;
 import com.icms.party.entity.Slot;
 import com.icms.party.repository.SlotRepository;
 
@@ -36,5 +37,9 @@ public class SlotServiceImpl {
 		slotRepository.deleteById(id);
 	}
 
-
+	public List<Slot> findByCalendarId(int calendarId) {
+		return slotRepository.findByCalendarId(calendarId);
+	}
+	
+	
 }
