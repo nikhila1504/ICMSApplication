@@ -15,12 +15,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.icms.party.dto.ClaimDocumentDTO;
+import com.icms.party.dto.FormDTO;
 import com.icms.party.entity.BodyPartType;
 import com.icms.party.entity.Claim;
 import com.icms.party.entity.ClaimParty;
 import com.icms.party.entity.Claimant;
 import com.icms.party.entity.ControvertType;
 import com.icms.party.entity.DisabilityType;
+import com.icms.party.entity.Document;
 import com.icms.party.entity.InjuryCauseType;
 import com.icms.party.entity.InjuryType;
 import com.icms.party.entity.NaicsType;
@@ -28,12 +31,16 @@ import com.icms.party.entity.StateType;
 import com.icms.party.entity.TreatmentType;
 import com.icms.party.entity.UserProductivityReport;
 import com.icms.party.entity.Wc1Form;
+import com.icms.party.enums.DocumentTypeEnum;
+import com.icms.party.enums.SourceTypeEnum;
 import com.icms.party.service.BodyPartTypeServiceImpl;
+import com.icms.party.service.ClaimDocumentServiceImpl;
 import com.icms.party.service.ClaimPartyServiceImpl;
 import com.icms.party.service.ClaimServiceImpl;
 import com.icms.party.service.ClaimantServiceImpl;
 import com.icms.party.service.ControvertTypeServiceImpl;
 import com.icms.party.service.DisabilityTypeServiceImpl;
+import com.icms.party.service.DocumentServiceImpl;
 import com.icms.party.service.InjuryCauseTypeServiceImpl;
 import com.icms.party.service.InjuryTypeServiceImpl;
 import com.icms.party.service.NaicsTypeServiceImpl;
@@ -59,6 +66,12 @@ public class WC1FormController {
 
 	@Autowired
 	private ClaimantServiceImpl claimantService;
+
+	@Autowired
+	private DocumentServiceImpl documentService;
+
+	@Autowired
+	private ClaimDocumentServiceImpl claimDocumentService;
 
 	@Autowired
 	private StateTypeServiceImpl stateTypeService;
@@ -242,5 +255,19 @@ public class WC1FormController {
 	@PreAuthorize("hasRole('ADMIN')or hasRole('USER')")
 	public List<UserProductivityReport> getUserProductiveReport() {
 		return userProductivityReportServiceImpl.getUserProductivityReport();
+	}
+
+	@PostMapping("/submitWc1Form")
+	public void submitWc1Form(@RequestBody Wc1Form wc1Form, Claim claim) {
+//		String documentType = DocumentTypeEnum.WC_1_EMPLOYERS_FIRST_REPORT_OF_INJURY.getCode();
+//		String sourceType = SourceTypeEnum.ONLINE.getCode();
+//		Document document = documentService.createNewDocument(claim, documentType, sourceType, false);
+//		wc1Form.setId(document.getId());
+//		wc1Form = wc1FormService.saveWc1Form(wc1Form);
+		claim = getClaimById(1665067L);
+//		claimDocumentService.createCaimDocument(claim, document);
+		Document document = documentService.getDocumentById(9368654L);
+//		ClaimDocumentDTO claimDocumentDto = new ClaimDocumentDTO(claim, document);
+		documentService.createDocument(claim, document, new FormDTO());
 	}
 }

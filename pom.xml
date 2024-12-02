@@ -155,7 +155,17 @@
 		    <artifactId>springfox-bean-validators</artifactId>
 		    <version>2.9.2</version>
 		</dependency>
-
+		
+		<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-amqp</artifactId>
+    </dependency>
+<!--<dependency>
+			<groupId>com.aspose</groupId>
+			<artifactId>aspose-words</artifactId>
+			<version>16.11.0</version>
+			<scope>provided</scope>
+		</dependency>-->
 <!-- ICMS Modules -->
 		<!--<dependency>
            <groupId>gov.ga.sbwc.icms</groupId>

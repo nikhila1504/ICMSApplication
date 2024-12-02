@@ -1,0 +1,15 @@
+package com.icms.party.enums;
+
+public enum TypeOfFormEnum {
+	CLAIM_FORM,
+	CASE_FORM,
+	PARTY_FORM,
+	ROC_FORM,
+	CLAIM_NON_FORM,
+	PARTY_NON_FORM,
+	CASE_NON_FORM,
+	CLAIM_ATTACHMENT,
+	PARTY_ATTACHMENT,
+	NON_FORM,
+	STIP_FORM
+}
