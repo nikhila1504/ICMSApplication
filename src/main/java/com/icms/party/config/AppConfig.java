@@ -17,6 +17,10 @@ import org.springframework.context.annotation.Configuration;
 import com.icms.party.constants.IcmsConfig;
 import com.icms.party.service.ConfigServiceImpl;
 
+import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
+import software.amazon.awssdk.auth.credentials.AwsCredentials;
+import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.s3.S3AsyncClient;
 
 @Configuration
 public class AppConfig {
@@ -55,15 +59,15 @@ public class AppConfig {
 		}
 	}
 
-//	@Bean
-//	public S3AsyncClient s3AsyncClient() {
-//		return S3AsyncClient.crtBuilder().credentialsProvider(this::credentials)
-//				.region(Region.of(IcmsConfig.AWS_S3_REGION)).build();
-//	}
-//
-//	private AwsCredentials credentials() {
-//		return AwsBasicCredentials.create(IcmsConfig.AWS_S3_ACCESS_KEY, IcmsConfig.AWS_S3_SECRET_KEY);
-//	}
+	@Bean
+	public S3AsyncClient s3AsyncClient() {
+		return S3AsyncClient.crtBuilder().credentialsProvider(this::credentials)
+				.region(Region.of(IcmsConfig.AWS_S3_REGION)).build();
+	}
+
+	private AwsCredentials credentials() {
+		return AwsBasicCredentials.create(IcmsConfig.AWS_S3_ACCESS_KEY, IcmsConfig.AWS_S3_SECRET_KEY);
+	}
 
 	public ConnectionFactory docConnectionFactory() {
 		CachingConnectionFactory factory = new CachingConnectionFactory(IcmsConfig.RABBIT_MQ_HOST);

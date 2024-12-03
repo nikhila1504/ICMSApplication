@@ -33,6 +33,8 @@
 		<java.version>17</java.version>
 		<spring-cloud.version>2021.0.9</spring-cloud.version>
 		<icms.project.version>1.0.0-SNAPSHOT</icms.project.version>
+		<aws.sdk.version>2.27.19</aws.sdk.version>
+		<aws.crt.version>0.30.11</aws.crt.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -160,6 +162,18 @@
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-amqp</artifactId>
     </dependency>
+    <dependency>
+			<groupId>software.amazon.awssdk</groupId>
+			<artifactId>s3</artifactId>
+			<version>${aws.sdk.version}</version>
+			<!--<scope>provided</scope>-->
+		</dependency>
+		<dependency>
+			<groupId>software.amazon.awssdk.crt</groupId>
+			<artifactId>aws-crt</artifactId>
+			<version>${aws.crt.version}</version>
+			<!--<scope>provided</scope>-->
+		</dependency>	
 <!--<dependency>
 			<groupId>com.aspose</groupId>
 			<artifactId>aspose-words</artifactId>
