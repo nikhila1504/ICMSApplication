@@ -46,6 +46,8 @@ public class Slot {
 	@Column(name = "title")
 	private String title;
 	
+	  @OneToOne(mappedBy = "slot")
+	    private TrailManagementCalendarIntHearing trailManagementCalendarIntHearing;
 //	@ManyToOne
 //	@JsonBackReference
 //	private Calendar calendar;
