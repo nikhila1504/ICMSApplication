@@ -18,4 +18,7 @@ public class TrlMgmtCalendarServiceImpl {
 		return trlMgmtCalendarRepository.findByClaimNo("2022095587");
 	}
 
+	public TrailManagementCalendarIntHearing getTrailManagementCalendarIntHearingById(Long id) {
+		return trlMgmtCalendarRepository.findById(id).orElse(null);
+	}
 }

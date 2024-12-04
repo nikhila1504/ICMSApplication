@@ -25,9 +25,7 @@ public class TrailManagementCalendarIntHearing implements TrailManagementCalenda
 	@Column(name = "CLAIM_ID")
 	private Long claimId;
 	
-	@ManyToOne
-	@JoinColumn(name = "slot_id")
-	private Slot slotId;
+
 /*
 	@Column(name = "SSN_OR_BTN")
 	@ColumnTransformer(forColumn = "SSN_OR_BTN", read = "DECRYPT(SSN_OR_BTN)", write = "ENCRYPT(?)")
@@ -124,14 +122,6 @@ public class TrailManagementCalendarIntHearing implements TrailManagementCalenda
 
 	public String getClaimNo() {
 		return claimNo;
-	}
-
-	public Slot getSlotId() {
-		return slotId;
-	}
-
-	public void setSlotId(Slot slotId) {
-		this.slotId = slotId;
 	}
 
 	public void setClaimNo(String claimNo) {

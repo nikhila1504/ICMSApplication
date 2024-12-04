@@ -84,5 +84,12 @@ public class SlotController {
 	public List<TrailManagementCalendarIntHearing> getAllTrlmgmtCalendarList() {
 		return trlMgmtCalendarImpl.getTrlMgmtCalendarList();
 	}
-
+	
+	@GetMapping("/calendarSlots/{id}")
+	@ApiOperation(value = "get Slots by id")
+	@PreAuthorize("hasRole('ADMIN')or hasRole('USER')")
+	public TrailManagementCalendarIntHearing getTrailManagementCalendarIntHearingById(@PathVariable Long id) {
+		System.out.print("getTrailManagementCalendarIntHearingById"+id);
+		return trlMgmtCalendarImpl.getTrailManagementCalendarIntHearingById(id);
+	}
 }
