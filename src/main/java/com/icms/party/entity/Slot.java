@@ -45,7 +45,6 @@ public class Slot {
 	
 	@Column(name = "title")
 	private String title;
-
 //	@ManyToOne
 //	@JsonBackReference
 //	private Calendar calendar;
