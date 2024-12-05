@@ -22,6 +22,8 @@ public class TrailManagementCalendarIntHearing implements TrailManagementCalenda
 
 	@Column(name = "CLAIM_ID")
 	private Long claimId;
+	
+
 /*
 	@Column(name = "SSN_OR_BTN")
 	@ColumnTransformer(forColumn = "SSN_OR_BTN", read = "DECRYPT(SSN_OR_BTN)", write = "ENCRYPT(?)")
