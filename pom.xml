@@ -9,7 +9,7 @@
 		<version>2.7.0</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.icms.party</groupId>
+	<groupId>gov.ga.sbwc.icms</groupId>
 	<artifactId>icms</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>icms</name>
@@ -174,12 +174,12 @@
 			<version>${aws.crt.version}</version>
 			<!--<scope>provided</scope>-->
 		</dependency>	
-<!--<dependency>
+	<dependency>
 			<groupId>com.aspose</groupId>
 			<artifactId>aspose-words</artifactId>
 			<version>16.11.0</version>
 			<scope>provided</scope>
-		</dependency>-->
+		</dependency>
 <!-- ICMS Modules -->
 		<!--<dependency>
            <groupId>gov.ga.sbwc.icms</groupId>
