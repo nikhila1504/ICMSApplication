@@ -285,10 +285,14 @@ public class WC1FormController {
 			DocumentFileDTO documentFileDTO = asposeService.createForm(claim, document, formDto);
 			System.out.println("documentFileDTO...."+documentFileDTO.getBytes());
 			byte[] fileBytes = documentFileDTO.getBytes();
-	         HttpHeaders headers = new HttpHeaders();
-	        headers.setContentType(MediaType.APPLICATION_PDF); 
-	        headers.setContentDisposition(ContentDisposition.attachment().filename("report.pdf").build()); 
-	        return new ResponseEntity<>(fileBytes, headers, HttpStatus.OK);
+//	         HttpHeaders headers = new HttpHeaders();
+//	        headers.setContentType(MediaType.APPLICATION_PDF); 
+//	        headers.setContentDisposition(ContentDisposition.inline().filename("Wc1.pdf").build()); 
+//	        return new ResponseEntity<>(fileBytes, headers, HttpStatus.OK);
+			HttpHeaders headers = new HttpHeaders();
+            headers.add("Content-Type", "application/pdf");
+            headers.add("Content-Disposition", "inline;");
+            return ResponseEntity.ok().headers(headers).body(fileBytes);
 //			asposeService.convertDocumentToPdf(documentFileDTO);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
