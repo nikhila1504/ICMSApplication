@@ -112,7 +112,7 @@ public class DocumentServiceImpl {
 
 	public void createDocument(Claim claim, Document document, FormDTO formDto) {
 		formDto.setDocument(this.updateDocumentStatusAndFileDate(document));
-
+		formDto.setClaim(claim);
 		formDto.setTypeOfForm(TypeOfFormEnum.CLAIM_FORM);
 		formDto.setNotificationDto(prepareFilingNotification(claim, document));
 

@@ -9,4 +9,5 @@ import com.icms.party.entity.TrailManagementCalendarIntHearing;
 public interface TrlMgmtCalendarRepository extends JpaRepository<TrailManagementCalendarIntHearing, Long> {
 
 	List<TrailManagementCalendarIntHearing> findByClaimNo(String claimNo);
+	List<TrailManagementCalendarIntHearing> findByDivisionTypeId(Long divisionTypeId);
 }
