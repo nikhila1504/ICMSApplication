@@ -26,5 +26,7 @@ public class TrlMgmtCalendarServiceImpl {
 		Page<TrailManagementCalendarIntHearing> page = trlMgmtCalendarRepository.findAll(pageable);
 		return page.getContent();
 	}
-
+	public TrailManagementCalendarIntHearing getTrailManagementCalendarIntHearingById(Long id) {
+		return trlMgmtCalendarRepository.findById(id).orElse(null);
+	}
 }
