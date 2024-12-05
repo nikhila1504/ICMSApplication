@@ -174,7 +174,7 @@
 			<version>${aws.crt.version}</version>
 			<!--<scope>provided</scope>-->
 		</dependency>	
-	<dependency>
+		<dependency>
 			<groupId>com.aspose</groupId>
 			<artifactId>aspose-words</artifactId>
 			<version>16.11.0</version>

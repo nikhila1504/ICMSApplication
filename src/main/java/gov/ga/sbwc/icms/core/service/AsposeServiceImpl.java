@@ -35,7 +35,7 @@ public class AsposeServiceImpl {
 
 		startTime = System.currentTimeMillis();
 		// Load the document.
-		com.aspose.words.Document asposeDoc = new com.aspose.words.Document("c:\\WC-1.doc");
+		com.aspose.words.Document asposeDoc = new com.aspose.words.Document("C:\\Users\\damarajun\\Documents\\WC-1.doc");
 
 		FormStaticFieldsDataSource staticFields = new FormStaticFieldsDataSource(formDto);
 		asposeDoc.getMailMerge().execute(staticFields.getClaimFieldNames(), staticFields.getClaimFieldValues());

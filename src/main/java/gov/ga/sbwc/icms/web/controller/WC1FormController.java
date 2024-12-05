@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ContentDisposition;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -263,7 +268,7 @@ public class WC1FormController {
 
 	@PostMapping(value = "/submitWc1Form")
 	@PreAuthorize("hasRole('ADMIN')or hasRole('USER')")
-	public byte[] submitWc1Form(@RequestBody Wc1Form wc1Form) {
+	public ResponseEntity<byte[]> submitWc1Form(@RequestBody Wc1Form wc1Form) {
 		String documentType = DocumentTypeEnum.WC_1_EMPLOYERS_FIRST_REPORT_OF_INJURY.getCode();
 		String sourceType = SourceTypeEnum.ONLINE.getCode();
 //		Document document = documentService.createNewDocument(claim, documentType, sourceType, false);
@@ -279,7 +284,11 @@ public class WC1FormController {
 		try {
 			DocumentFileDTO documentFileDTO = asposeService.createForm(claim, document, formDto);
 			System.out.println("documentFileDTO...."+documentFileDTO.getBytes());
-			return documentFileDTO.getBytes();
+			byte[] fileBytes = documentFileDTO.getBytes();
+	         HttpHeaders headers = new HttpHeaders();
+	        headers.setContentType(MediaType.APPLICATION_PDF); 
+	        headers.setContentDisposition(ContentDisposition.attachment().filename("report.pdf").build()); 
+	        return new ResponseEntity<>(fileBytes, headers, HttpStatus.OK);
 //			asposeService.convertDocumentToPdf(documentFileDTO);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
