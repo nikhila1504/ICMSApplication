@@ -53,7 +53,8 @@ public class AsposeServiceImpl {
 		outStream = new ByteArrayOutputStream();
 
 		// Save the document to stream.
-		asposeDoc.save("C:\\Users\\gonea\\Documents\\Wc1.pdf");
+		asposeDoc.save(outStream,com.aspose.words.SaveFormat.PDF);
+//		asposeDoc.save("C:\\Users\\gonea\\Documents\\Wc1.pdf");
 		byte[] bytes = outStream.toByteArray();
 //		OutputStream out = new FileOutputStream(new File("c:\\Wc1.pdf"));
 //		int read = 0;

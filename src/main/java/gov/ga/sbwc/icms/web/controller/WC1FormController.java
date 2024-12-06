@@ -1,13 +1,13 @@
 package gov.ga.sbwc.icms.web.controller;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ContentDisposition;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -283,16 +283,17 @@ public class WC1FormController {
 		FormDTO formDto = new Wc1FormDTO(claim, document, wc1Form, null, null, null, null);
 		try {
 			DocumentFileDTO documentFileDTO = asposeService.createForm(claim, document, formDto);
-			System.out.println("documentFileDTO...."+documentFileDTO.getBytes());
-			byte[] fileBytes = documentFileDTO.getBytes();
-//	         HttpHeaders headers = new HttpHeaders();
-//	        headers.setContentType(MediaType.APPLICATION_PDF); 
-//	        headers.setContentDisposition(ContentDisposition.inline().filename("Wc1.pdf").build()); 
-//	        return new ResponseEntity<>(fileBytes, headers, HttpStatus.OK);
+			System.out.println("documentFileDTO...." + documentFileDTO.getBytes());
+//			byte[] pdfBytes = Files.readAllBytes(Paths.get("C:/Users/gonea/Documents/Wc1.pdf"));
+
+			byte[] pdfBytes = documentFileDTO.getBytes();
+			System.out.println("pdfBytes...." + pdfBytes);
 			HttpHeaders headers = new HttpHeaders();
-            headers.add("Content-Type", "application/pdf");
-            headers.add("Content-Disposition", "inline;");
-            return ResponseEntity.ok().headers(headers).body(fileBytes);
+			headers.set("Content-Type", "application/pdf");
+			headers.set("Content-Disposition", "inline;");
+
+			// Return the PDF as a response entity
+			return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
 //			asposeService.convertDocumentToPdf(documentFileDTO);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
