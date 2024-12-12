@@ -271,14 +271,15 @@ public class WC1FormController {
 	public ResponseEntity<byte[]> submitWc1Form(@RequestBody Wc1Form wc1Form) {
 		String documentType = DocumentTypeEnum.WC_1_EMPLOYERS_FIRST_REPORT_OF_INJURY.getCode();
 		String sourceType = SourceTypeEnum.ONLINE.getCode();
-//		Document document = documentService.createNewDocument(claim, documentType, sourceType, false);
-//		wc1Form.setId(document.getId());
-//		wc1Form = wc1FormService.saveWc1Form(wc1Form);
-		Claim claim = getClaimById(1665067L);
-//		claimDocumentService.createCaimDocument(claim, document);
+		Claim claim = getClaimById(1705266L);
+		Document document = documentService.createNewDocument(claim, documentType, sourceType, false);
+		wc1Form.setId(document.getId());
+		wc1Form = wc1FormService.saveWc1Form(wc1Form);
+		
+		claimDocumentService.createCaimDocument(claim, document);
 //		wc1Form = getWC1FormById(9368654L);
 //		List<ClaimParty> claimPartyList = getClaimPartyByClaimId(1665067L);
-		Document document = documentService.getDocumentById(9368654L);
+//		Document document = documentService.getDocumentById(9368654L);
 //		ClaimDocumentDTO claimDocumentDto = new ClaimDocumentDTO(claim, document);
 
 		if (StringUtils.isNotBlank(wc1Form.getDaysOff())) {
@@ -295,7 +296,7 @@ public class WC1FormController {
 		}
 		System.out.println("wc1Form.getWageRateFrequency()...."+wc1Form.getWageRateFrequency());
 		FormDTO formDto = new Wc1FormDTO(claim, document, wc1Form, null, null, null, null);
-//		documentService.createDocument(claim, document, formDto);
+		documentService.createDocument(claim, document, formDto);
 
 		try {
 			DocumentFileDTO documentFileDTO = asposeService.createForm(claim, document, formDto);
