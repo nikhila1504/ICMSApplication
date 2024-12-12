@@ -351,8 +351,8 @@ public class FormStaticFieldsDataSource {
 					wc1Form.getInsurerFileNo(), wc1Form.getDateHired(), wc1Form.getJobClassificationCode(),
 					wc1Form.getDaysWorkedPerWeek(), wc1Form.getWageRate(), wc1Form.getWageRateFrequency(),
 					getInsurerType(formDto.getInsurer()), //
-					"2", null,
-					FormConstants.DEFAULT_STRING,
+					getDaysOff(wc1Form), wc1Form.getTimeOfInjury(),
+					wc1Form.getTimeOfInjury() != null ? getAmPmFromTime(wc1Form) : FormConstants.DEFAULT_STRING,
 					wc1Form.getDateEmployerNotified(), wc1Form.getDateFailedToWorkFullDay(),
 					wc1Form.getReceivedFullPay().getCode(), wc1Form.getInjuredInEmpPermises(),
 					wc1Form.getTypeOfInjury() != null ? wc1Form.getTypeOfInjury().getDescription()
@@ -510,6 +510,7 @@ public class FormStaticFieldsDataSource {
 	private String getDaysOff(Wc1Form wc1Form) {
 		if (StringUtils.isNotEmpty(wc1Form.getDaysOff())) {
 			StringBuilder daysOff = new StringBuilder();
+			System.out.println("wc1Form.getDaysOff())...."+wc1Form.getDaysOff());
 			if (wc1Form.getDaysOff().contains("1")) {
 				daysOff.append("M, ");
 			}

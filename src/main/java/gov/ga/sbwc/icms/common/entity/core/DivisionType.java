@@ -10,12 +10,15 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * The persistent class for the DIVISION_TYPE database table.
  * 
  */
 @Entity
 @Table(schema = "ICMS", name = "DIVISION_TYPE")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class DivisionType extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 

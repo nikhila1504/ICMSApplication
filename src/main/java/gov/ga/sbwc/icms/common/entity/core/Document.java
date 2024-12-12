@@ -19,6 +19,8 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.ColumnTransformer;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import gov.ga.sbwc.icms.common.enums.RecordStatusEnum;
 import gov.ga.sbwc.icms.common.util.DataConversionUtil;
 
@@ -28,6 +30,7 @@ import gov.ga.sbwc.icms.common.util.DataConversionUtil;
  */
 @Entity
 @Table(schema = "ICMS", name = "DOCUMENT")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Document extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 

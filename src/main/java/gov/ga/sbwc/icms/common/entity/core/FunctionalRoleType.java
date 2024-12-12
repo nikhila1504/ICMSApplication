@@ -13,12 +13,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * The persistent class for the "FUNCTIONAL_ROLE_TYPE" database table.
  * 
  */
 @Entity
 @Table(schema = "ICMS", name = "FUNCTIONAL_ROLE_TYPE")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class FunctionalRoleType extends BaseEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;

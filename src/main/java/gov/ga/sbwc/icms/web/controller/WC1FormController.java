@@ -1,10 +1,9 @@
 package gov.ga.sbwc.icms.web.controller;
 
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -20,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import gov.ga.sbwc.icms.common.constants.FormConstants;
 import gov.ga.sbwc.icms.common.dto.doc.DocumentFileDTO;
 import gov.ga.sbwc.icms.common.dto.form.FormDTO;
 import gov.ga.sbwc.icms.common.dto.form.Wc1FormDTO;
@@ -276,11 +276,27 @@ public class WC1FormController {
 //		wc1Form = wc1FormService.saveWc1Form(wc1Form);
 		Claim claim = getClaimById(1665067L);
 //		claimDocumentService.createCaimDocument(claim, document);
-
+//		wc1Form = getWC1FormById(9368654L);
 //		List<ClaimParty> claimPartyList = getClaimPartyByClaimId(1665067L);
 		Document document = documentService.getDocumentById(9368654L);
 //		ClaimDocumentDTO claimDocumentDto = new ClaimDocumentDTO(claim, document);
+
+		if (StringUtils.isNotBlank(wc1Form.getDaysOff())) {
+			String daysOff = wc1Form.getDaysOff();
+			if (daysOff.equals(FormConstants.NO)) {
+				wc1Form.setDaysOff("");
+			}else {
+				wc1Form.setDaysOff("1");
+			}
+		}
+		
+		if (wc1Form.getTimeOfInjury()!=null) {
+			System.out.println("wc1Form.getTimeOfInjury()...." + wc1Form.getTimeOfInjury());
+		}
+		System.out.println("wc1Form.getWageRateFrequency()...."+wc1Form.getWageRateFrequency());
 		FormDTO formDto = new Wc1FormDTO(claim, document, wc1Form, null, null, null, null);
+//		documentService.createDocument(claim, document, formDto);
+
 		try {
 			DocumentFileDTO documentFileDTO = asposeService.createForm(claim, document, formDto);
 			System.out.println("documentFileDTO...." + documentFileDTO.getBytes());

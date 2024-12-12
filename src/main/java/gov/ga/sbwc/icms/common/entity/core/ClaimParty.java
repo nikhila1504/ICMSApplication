@@ -14,12 +14,15 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * The persistent class for the CLAIM_PARTY database table.
  * 
  */
 @Entity
 @Table(schema = "ICMS", name = "CLAIM_PARTY")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class ClaimParty extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 

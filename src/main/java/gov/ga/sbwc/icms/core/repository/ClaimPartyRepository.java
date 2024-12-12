@@ -12,4 +12,6 @@ public interface ClaimPartyRepository extends JpaRepository<ClaimParty, Long> {
 	ClaimParty findByClaimPartyId(Long claimPartyId);
 
 	List<ClaimParty> findByClaimId(Long claimId);
+	
+	List<ClaimParty> findByClaimIdOrderByPartyPartyTypeDisplayOrder(Long claimId);
 }

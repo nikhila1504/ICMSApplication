@@ -15,8 +15,11 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 import gov.ga.sbwc.icms.common.enums.RadioButtonEnum;
 import gov.ga.sbwc.icms.common.util.DataConversionUtil;
+import gov.ga.sbwc.icms.common.util.TimeWithCurrentDateDeserializer;
 
 /**
  * The persistent class for the WC1_FORM database table.
@@ -252,6 +255,7 @@ public class Wc1Form extends BaseEntity implements Form, Serializable {
 	private String reportPreparedPhoneExt;
 
 	@Column(name = "TIME_OF_INJURY")
+	@JsonDeserialize(using = TimeWithCurrentDateDeserializer.class)
 	private Date timeOfInjury = null;
 
 	@Column(name = "WAGE_PER_WEEK_AFTER_RETURN", columnDefinition = "NUMBER(38,2)")

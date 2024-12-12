@@ -19,6 +19,6 @@ public class ClaimPartyServiceImpl {
 	}
 
 	public List<ClaimParty> getClaimPartyByClaimId(Long id) {
-		return claimPartyRepository.findByClaimId(id);
+		return claimPartyRepository.findByClaimIdOrderByPartyPartyTypeDisplayOrder(id);
 	}
 }

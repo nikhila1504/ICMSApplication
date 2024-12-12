@@ -35,8 +35,16 @@ public class AsposeServiceImpl {
 
 		startTime = System.currentTimeMillis();
 		// Load the document.
-		com.aspose.words.Document asposeDoc = new com.aspose.words.Document("C:\\WC-1.doc");
+		com.aspose.words.Document asposeDoc = new com.aspose.words.Document("C:\\ICMS-POC-WC1\\ICMSApplication\\src\\main\\java\\templates\\WC-1.doc");
 
+//		TextStamp watermark = new TextStamp("Confidential");
+//        watermark.getTextState().setFont(FontRepository.findFont("Arial"));
+//        watermark.getTextState().setFontSize(50);
+//        watermark.getTextState().setColor(Color.getLightGray());
+//        watermark.getTextState().setRotation(45);
+//        watermark.setHorizontalAlignment(HorizontalAlignment.CENTER);
+//        watermark.setVerticalAlignment(VerticalAlignment.CENTER);
+		
 		FormStaticFieldsDataSource staticFields = new FormStaticFieldsDataSource(formDto);
 		asposeDoc.getMailMerge().execute(staticFields.getClaimFieldNames(), staticFields.getClaimFieldValues());
 		asposeDoc.getMailMerge().execute(staticFields.getSubmitterFieldNames(), staticFields.getSubmitterFieldValues());
