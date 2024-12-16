@@ -12,6 +12,10 @@ import gov.ga.sbwc.icms.common.entity.core.BodyPartType;
 public interface BodyPartTypeRepository extends CrudRepository<BodyPartType, Long> {
 	@Query("SELECT t FROM BodyPartType t where t.recordStatus=1 and t.georgiaPI = false order by t.description")
 	List<BodyPartType> listAllBodyPartTypes();
+	
+	
+	@Query("SELECT t.description FROM BodyPartType t where t.recordStatus=1 and t.georgiaPI = false order by t.description")
+	List<String> findAllBodyPartTypeDescriptions();
 
 	BodyPartType findByCode(String code);
 }
