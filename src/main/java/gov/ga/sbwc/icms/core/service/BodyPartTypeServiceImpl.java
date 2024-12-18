@@ -26,8 +26,4 @@ public class BodyPartTypeServiceImpl {
 		return bodyPartTypeRepository.listAllBodyPartTypes();
 	}
 	
-	public List<String> findAllBodyPartTypeDescriptions() {
-		return bodyPartTypeRepository.findAllBodyPartTypeDescriptions();
-	}
-
 }

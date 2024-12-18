@@ -1,150 +1,90 @@
-package gov.ga.sbwc.icms.common.entity.core;
+package gov.ga.sbwc.icms.common.bean;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Transient;
-import javax.validation.constraints.Size;
-
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
+import gov.ga.sbwc.icms.common.entity.core.BodyPartType;
+import gov.ga.sbwc.icms.common.entity.core.ControvertType;
+import gov.ga.sbwc.icms.common.entity.core.DisabilityType;
+import gov.ga.sbwc.icms.common.entity.core.InjuryCauseType;
+import gov.ga.sbwc.icms.common.entity.core.InjuryType;
+import gov.ga.sbwc.icms.common.entity.core.NaicsType;
+import gov.ga.sbwc.icms.common.entity.core.PartyType;
+import gov.ga.sbwc.icms.common.entity.core.TreatmentType;
 import gov.ga.sbwc.icms.common.enums.RadioButtonEnum;
-import gov.ga.sbwc.icms.common.util.DataConversionUtil;
-import gov.ga.sbwc.icms.common.util.TimeWithCurrentDateDeserializer;
 
-/**
- * The persistent class for the WC1_FORM database table.
- * 
- */
-@Entity
-@Table(schema = "ICMS", name = "WC1_FORM")
-public class Wc1Form extends BaseEntity implements Form, Serializable {
+public class Wc1FormBean implements Serializable {
+	
+
 	private static final long serialVersionUID = 1L;
-
-	@Id
-	@Column(name = "DOCUMENT_ID")
+	
 	private Long id;
 
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "INJURY_TYPE_ID")
 	private InjuryType typeOfInjury;
 
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "DISA_BODY_PART_TYPE_ID")
 	private BodyPartType disabilityBodyType;
 
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "AFFT_BODY_PART_TYPE_ID")
 	private BodyPartType affectedBodyType;
 
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "INJURY_CAUSE_TYPE_ID")
 	private InjuryCauseType causeOfInjury;
 
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "NAICS_TYPE_ID")
 	private NaicsType naicsType;
 
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "INSURER_TYPE_ID")
 	private PartyType insurerType;
 
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "TREATMENT_TYPE_ID")
 	private TreatmentType initialTreatmentGiven;
 
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "DISABILITY_TYPE_ID")
 	private DisabilityType benefitsPayableFor;
 
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "CONTROVERT_TYPE_ID")
 	private ControvertType controvertType;
 
-	@Column(name = "AVERAGE_WEEKLY_WAGE", columnDefinition = "NUMBER(38,2)")
 	private Double averageWeeklyWage = null;
 
-	@Column(name = "COMPENSATION_PAID", columnDefinition = "NUMBER(38,2)")
 	private Double compensationPaid = null;
 
-	@Column(name = "DATE_BENEFITS_PAYABLE_FROM")
 	private Date dateBenefitsPayableFrom;
 
-	@Column(name = "DATE_EMPLOYER_NOTIFIED")
 	private Date dateEmployerNotified;
 
-	@Column(name = "DATE_FAILED_TO_WORK_FULL_DAY")
 	private Date dateFailedToWorkFullDay;
 
-	@Column(name = "DATE_HIRED")
 	private Date dateHired;
 
-	@Column(name = "DATE_OF_DEATH")
 	private Date dateOfDeath;
 
-	@Column(name = "DATE_OF_DISABILITY")
 	private Date dateOfDisability;
 
-	@Column(name = "DATE_OF_FIRST_PAYMENT")
 	private Date dateOfFirstPayment;
 
-	@Column(name = "DATE_OF_REPORT")
 	private Date dateOfReport;
 
-	@Column(name = "DATE_RETURNED_TO_WORK")
 	private Date dateReturnedToWork;
 
-	@Column(name = "DATE_SALARY_PAID")
 	private Date dateSalaryPaid;
 
-	@Column(name = "DATE_UNTIL_BENEFITS_PAID")
 	private Date dateUntilBenefitsPaid;
 
-	@Column(name = "DAYS_OFF")
 	private String daysOff;
 
-	@Column(name = "DAYS_WORKED_PER_WEEK")
 	private Integer daysWorkedPerWeek;
 
-	@Column(name = "DISABILITY_IN_WEEKS", columnDefinition = "NUMBER(38,2)")
 	private Double disabilityInWeeks;
 
-	@Column(name = "DISBAILITY_PERCENTAGE", columnDefinition = "NUMBER(38,2)")
 	private Double disabilityPercentage;
 
-	@Column(name = "IS_RECEIVED_FULL_PAY")
-	@Enumerated(EnumType.STRING)
 	private RadioButtonEnum receivedFullPay;
 
-	@Column(name = "IS_SEC_B")
 	private Boolean sectionB = false;
 
-	@Column(name = "IS_SEC_C")
 	private Boolean sectionC = false;
 
-	@Column(name = "IS_SEC_D")
 	private Boolean sectionD = false;
 
-	@Size(max = 100, message = "Hospital Address 1 should not be more than 100 characters")
-	@Column(name = "HOSPITAL_ADDRESS1")
 	private String hospitalAddress1;
 
-	@Size(max = 100, message = "Hospital Address 2 should not be more than 30 characters")
-	@Column(name = "HOSPITAL_ADDRESS2")
 	private String hospitalAddress2;
 
-	@Size(max = 100, message = "Hospital City should not be more than 100 characters")
-	@Column(name = "HOSPITAL_CITY")
 	private String hospitalCity;
 
 	/*
@@ -154,54 +94,30 @@ public class Wc1Form extends BaseEntity implements Form, Serializable {
 	 * @Column(name = "HOSPITAL_EMAIL") private String hospitalEmail;
 	 */
 
-	@Size(max = 100, message = "Hospital Name should not be more than 100 characters")
-	@Column(name = "HOSPITAL_NAME")
 	private String hospitalName;
 
-	@Size(max = 14, message = "Hospital Phone should not be more than 14 characters")
-	@Column(name = "HOSPITAL_PHONE")
 	private String hospitalPhone;
 
-	@Size(max = 10, message = "Hospital Phone Extension should not be more than 10 characters")
-	@Column(name = "HOSPITAL_PHONE_EXT")
 	private String hospitalPhoneExt;
 
-	@Size(max = 2, message = "Hospital State should not be more than 2 characters")
-	@Column(name = "HOSPITAL_STATE")
 	private String hospitalState = "GA";
 
-	@Size(max = 5, message = "Hospital Zip should not be more than 5 characters")
-	@Column(name = "HOSPITAL_ZIP")
 	private String hospitalZip;
 
-	@Size(max = 4, message = "Hospital Zip Extension should not be more than 4 characters")
-	@Column(name = "HOSPITAL_ZIP_EXT")
 	private String hospitalZipExt;
 
-	@Column(name = "IS_CONTROVERTED")
 	private Boolean controverted;
 
-	@Column(name = "IS_INJURED_IN_EMP_PERMISES")
-	@Enumerated(EnumType.STRING)
 	private RadioButtonEnum injuredInEmpPermises;
 
-	@Size(max = 20, message = "Job Classification Code should not be more than 20 characters")
-	@Column(name = "JOB_CLASSIFICATION_CODE")
 	private String jobClassificationCode;
 
-	@Column(name = "PENALITY_PAID", columnDefinition = "NUMBER(38,2)")
 	private Double penalityPaid = null;
 
-	@Size(max = 100, message = "Physician Address 1 should not be more than 100 characters")
-	@Column(name = "PHYSICIAN_ADDRESS1")
 	private String physicianAddress1;
 
-	@Size(max = 100, message = "Physician Address 2 should not be more than 100 characters")
-	@Column(name = "PHYSICIAN_ADDRESS2")
 	private String physicianAddress2;
 
-	@Size(max = 100, message = "Physician City should not be more than 100 characters")
-	@Column(name = "PHYSICIAN_CITY")
 	private String physicianCity;
 
 	/*
@@ -211,107 +127,52 @@ public class Wc1Form extends BaseEntity implements Form, Serializable {
 	 * @Column(name = "PHYSICIAN_EMAIL") private String physicianEmail;
 	 */
 
-	@Size(max = 100, message = "Physician Name should not be more than 100 characters")
-	@Column(name = "PHYSICIAN_NAME")
 	private String physicianName;
 
-	@Size(max = 14, message = "Physician Phone should not be more than 14 characters")
-	@Column(name = "PHYSICIAN_PHONE")
 	private String physicianPhone;
 
-	@Size(max = 10, message = "Physician Phone Extension should not be more than 10 characters")
-	@Column(name = "PHYSICIAN_PHONE_EXT")
 	private String physicianPhoneExt;
 
-	@Size(max = 2, message = "Physician State should not be more than 2 characters")
-	@Column(name = "PHYSICIAN_STATE")
 	private String physicianState = "GA";
 
-	@Size(max = 5, message = "Physician Zip should not be more than 5 characters")
-	@Column(name = "PHYSICIAN_ZIP")
 	private String physicianZip;
 
-	@Size(max = 4, message = "Physician Zip Extension should not be more than 4 characters")
-	@Column(name = "PHYSICIAN_ZIP_EXT")
 	private String physicianZipExt;
 
-	@Column(name = "IS_PREVIOUS_MEDICAL_ONLY")
-	@Enumerated(EnumType.STRING)
 	private RadioButtonEnum previousMedicalOnly;
 
-	@Size(max = 1000, message = "Reason for Benefits not paid should not be more than 1000 characters")
-	@Column(name = "REASON_FOR_BENEFITS_NOT_PAID")
 	private String reasonForBenefitsNotPaid;
 
-	@Size(max = 100, message = "Report Prepared By should not be more than 100 characters")
-	@Column(name = "REPORT_PREPARED_BY")
 	private String reportPreparedBy;
 
-	@Size(max = 14, message = "Telephone Number should not be more than 10 characters")
-	@Column(name = "REPORT_PREPARED_PHONE")
 	private String reportPreparedPhone;
 
-	@Size(max = 10, message = "Telephone Number Extension should not be more than 10 characters")
-	@Column(name = "REPORT_PREPARED_PHONE_EXT")
 	private String reportPreparedPhoneExt;
 
-	@Column(name = "TIME_OF_INJURY")
-	@JsonDeserialize(using = TimeWithCurrentDateDeserializer.class)
 	private Date timeOfInjury = null;
 
-	@Column(name = "WAGE_PER_WEEK_AFTER_RETURN", columnDefinition = "NUMBER(38,2)")
 	private Double wagePerWeekAfterReturn = null;
 
-	@Column(name = "WAGE_RATE", columnDefinition = "NUMBER(38,2)")
 	private Double wageRate = null;
 
-	@Column(name = "WAGE_RATE_FREQUENCY")
 	private Integer wageRateFrequency;
 
-	@Column(name = "WEEKLY_BENEFIT", columnDefinition = "NUMBER(38,2)")
 	private Double weeklyBenefit = null;
 
-	@Size(max = 1000, message = "Others Body Part Comment should not be more than 1000 characters")
-	@Column(name = "OTHERS_BODY_PART_COMMENT")
 	private String othersBodyPartComment;
 
-	@Size(max = 50, message = "Insurer File Number should not be more than 50 characters")
-	@Column(name = "INSURER_FILE_NO")
 	private String insurerFileNo;
 
-	@Column(name = "IS_CERTIFIED")
 	private Boolean certified = false;
 
-	@Size(max = 500, message = "Other Injury Cause should not be more than 500 characters")
-	@Column(name = "OTHER_INJURY_CAUSE")
 	private String otherInjuryCause;
-	@Column(name = "IS_DOB_NOT_AVAILABLE")
 	private Boolean dobNotAvailable = false;
 
-	@Transient
 	private boolean select = false;
 
-	@Column(name = "IS_INCOME_BENEFITS")
-	@Enumerated(EnumType.STRING)
 	private RadioButtonEnum incomeBenefits;
-
-//	@ManyToOne
-//	@JoinColumn(name = "EMPLOYER_ID")
-//	private Party employer;
-
-	@Transient
+	
 	private List<BodyPartType> bodyPartAffected;
-
-	public Wc1Form() {
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public InjuryType getTypeOfInjury() {
 		return typeOfInjury;
@@ -369,20 +230,28 @@ public class Wc1Form extends BaseEntity implements Form, Serializable {
 		this.initialTreatmentGiven = initialTreatmentGiven;
 	}
 
-	public Double getAverageWeeklyWage() {
-		return averageWeeklyWage;
-	}
-
-	public void setAverageWeeklyWage(Double averageWeeklyWage) {
-		this.averageWeeklyWage = averageWeeklyWage;
-	}
-
 	public DisabilityType getBenefitsPayableFor() {
 		return benefitsPayableFor;
 	}
 
 	public void setBenefitsPayableFor(DisabilityType benefitsPayableFor) {
 		this.benefitsPayableFor = benefitsPayableFor;
+	}
+
+	public ControvertType getControvertType() {
+		return controvertType;
+	}
+
+	public void setControvertType(ControvertType controvertType) {
+		this.controvertType = controvertType;
+	}
+
+	public Double getAverageWeeklyWage() {
+		return averageWeeklyWage;
+	}
+
+	public void setAverageWeeklyWage(Double averageWeeklyWage) {
+		this.averageWeeklyWage = averageWeeklyWage;
 	}
 
 	public Double getCompensationPaid() {
@@ -473,6 +342,14 @@ public class Wc1Form extends BaseEntity implements Form, Serializable {
 		this.dateSalaryPaid = dateSalaryPaid;
 	}
 
+	public Date getDateUntilBenefitsPaid() {
+		return dateUntilBenefitsPaid;
+	}
+
+	public void setDateUntilBenefitsPaid(Date dateUntilBenefitsPaid) {
+		this.dateUntilBenefitsPaid = dateUntilBenefitsPaid;
+	}
+
 	public String getDaysOff() {
 		return daysOff;
 	}
@@ -505,6 +382,38 @@ public class Wc1Form extends BaseEntity implements Form, Serializable {
 		this.disabilityPercentage = disabilityPercentage;
 	}
 
+	public RadioButtonEnum getReceivedFullPay() {
+		return receivedFullPay;
+	}
+
+	public void setReceivedFullPay(RadioButtonEnum receivedFullPay) {
+		this.receivedFullPay = receivedFullPay;
+	}
+
+	public Boolean getSectionB() {
+		return sectionB;
+	}
+
+	public void setSectionB(Boolean sectionB) {
+		this.sectionB = sectionB;
+	}
+
+	public Boolean getSectionC() {
+		return sectionC;
+	}
+
+	public void setSectionC(Boolean sectionC) {
+		this.sectionC = sectionC;
+	}
+
+	public Boolean getSectionD() {
+		return sectionD;
+	}
+
+	public void setSectionD(Boolean sectionD) {
+		this.sectionD = sectionD;
+	}
+
 	public String getHospitalAddress1() {
 		return hospitalAddress1;
 	}
@@ -529,13 +438,6 @@ public class Wc1Form extends BaseEntity implements Form, Serializable {
 		this.hospitalCity = hospitalCity;
 	}
 
-	/*
-	 * public String getHospitalEmail() { return hospitalEmail; }
-	 * 
-	 * public void setHospitalEmail(String hospitalEmail) { this.hospitalEmail =
-	 * hospitalEmail; }
-	 */
-
 	public String getHospitalName() {
 		return hospitalName;
 	}
@@ -549,7 +451,7 @@ public class Wc1Form extends BaseEntity implements Form, Serializable {
 	}
 
 	public void setHospitalPhone(String hospitalPhone) {
-		this.hospitalPhone = DataConversionUtil.parsePhone(hospitalPhone);
+		this.hospitalPhone = hospitalPhone;
 	}
 
 	public String getHospitalPhoneExt() {
@@ -574,6 +476,14 @@ public class Wc1Form extends BaseEntity implements Form, Serializable {
 
 	public void setHospitalZip(String hospitalZip) {
 		this.hospitalZip = hospitalZip;
+	}
+
+	public String getHospitalZipExt() {
+		return hospitalZipExt;
+	}
+
+	public void setHospitalZipExt(String hospitalZipExt) {
+		this.hospitalZipExt = hospitalZipExt;
 	}
 
 	public Boolean getControverted() {
@@ -632,13 +542,6 @@ public class Wc1Form extends BaseEntity implements Form, Serializable {
 		this.physicianCity = physicianCity;
 	}
 
-	/*
-	 * public String getPhysicianEmail() { return physicianEmail; }
-	 * 
-	 * public void setPhysicianEmail(String physicianEmail) { this.physicianEmail =
-	 * physicianEmail; }
-	 */
-
 	public String getPhysicianName() {
 		return physicianName;
 	}
@@ -652,7 +555,7 @@ public class Wc1Form extends BaseEntity implements Form, Serializable {
 	}
 
 	public void setPhysicianPhone(String physicianPhone) {
-		this.physicianPhone = DataConversionUtil.parsePhone(physicianPhone);
+		this.physicianPhone = physicianPhone;
 	}
 
 	public String getPhysicianPhoneExt() {
@@ -677,6 +580,14 @@ public class Wc1Form extends BaseEntity implements Form, Serializable {
 
 	public void setPhysicianZip(String physicianZip) {
 		this.physicianZip = physicianZip;
+	}
+
+	public String getPhysicianZipExt() {
+		return physicianZipExt;
+	}
+
+	public void setPhysicianZipExt(String physicianZipExt) {
+		this.physicianZipExt = physicianZipExt;
 	}
 
 	public RadioButtonEnum getPreviousMedicalOnly() {
@@ -704,11 +615,19 @@ public class Wc1Form extends BaseEntity implements Form, Serializable {
 	}
 
 	public String getReportPreparedPhone() {
-		return DataConversionUtil.formatPhone(reportPreparedPhone);
+		return reportPreparedPhone;
 	}
 
 	public void setReportPreparedPhone(String reportPreparedPhone) {
-		this.reportPreparedPhone = DataConversionUtil.parsePhone(reportPreparedPhone);
+		this.reportPreparedPhone = reportPreparedPhone;
+	}
+
+	public String getReportPreparedPhoneExt() {
+		return reportPreparedPhoneExt;
+	}
+
+	public void setReportPreparedPhoneExt(String reportPreparedPhoneExt) {
+		this.reportPreparedPhoneExt = reportPreparedPhoneExt;
 	}
 
 	public Date getTimeOfInjury() {
@@ -751,76 +670,12 @@ public class Wc1Form extends BaseEntity implements Form, Serializable {
 		this.weeklyBenefit = weeklyBenefit;
 	}
 
-	public Date getDateUntilBenefitsPaid() {
-		return dateUntilBenefitsPaid;
-	}
-
-	public void setDateUntilBenefitsPaid(Date dateUntilBenefitsPaid) {
-		this.dateUntilBenefitsPaid = dateUntilBenefitsPaid;
-	}
-
-	public ControvertType getControvertType() {
-		return controvertType;
-	}
-
-	public void setControvertType(ControvertType controvertType) {
-		this.controvertType = controvertType;
-	}
-
 	public String getOthersBodyPartComment() {
 		return othersBodyPartComment;
 	}
 
 	public void setOthersBodyPartComment(String othersBodyPartComment) {
 		this.othersBodyPartComment = othersBodyPartComment;
-	}
-
-	public boolean isSelect() {
-		return select;
-	}
-
-	public void setSelect(boolean select) {
-		this.select = select;
-	}
-
-	public Boolean getCertified() {
-		return certified;
-	}
-
-	public void setCertified(Boolean certified) {
-		this.certified = certified;
-	}
-
-	public RadioButtonEnum getReceivedFullPay() {
-		return receivedFullPay;
-	}
-
-	public void setReceivedFullPay(RadioButtonEnum receivedFullPay) {
-		this.receivedFullPay = receivedFullPay;
-	}
-
-	public Boolean getSectionB() {
-		return sectionB;
-	}
-
-	public void setSectionB(Boolean sectionB) {
-		this.sectionB = sectionB;
-	}
-
-	public Boolean getSectionC() {
-		return sectionC;
-	}
-
-	public void setSectionC(Boolean sectionC) {
-		this.sectionC = sectionC;
-	}
-
-	public Boolean getSectionD() {
-		return sectionD;
-	}
-
-	public void setSectionD(Boolean sectionD) {
-		this.sectionD = sectionD;
 	}
 
 	public String getInsurerFileNo() {
@@ -831,36 +686,12 @@ public class Wc1Form extends BaseEntity implements Form, Serializable {
 		this.insurerFileNo = insurerFileNo;
 	}
 
-	public RadioButtonEnum getIncomeBenefits() {
-		return incomeBenefits;
+	public Boolean getCertified() {
+		return certified;
 	}
 
-	public void setIncomeBenefits(RadioButtonEnum incomeBenefits) {
-		this.incomeBenefits = incomeBenefits;
-	}
-
-//	public Party getEmployer() {
-//		return employer;
-//	}
-//
-//	public void setEmployer(Party employer) {
-//		this.employer = employer;
-//	}
-
-	public String getHospitalZipExt() {
-		return hospitalZipExt;
-	}
-
-	public void setHospitalZipExt(String hospitalZipExt) {
-		this.hospitalZipExt = hospitalZipExt;
-	}
-
-	public String getPhysicianZipExt() {
-		return physicianZipExt;
-	}
-
-	public void setPhysicianZipExt(String physicianZipExt) {
-		this.physicianZipExt = physicianZipExt;
+	public void setCertified(Boolean certified) {
+		this.certified = certified;
 	}
 
 	public String getOtherInjuryCause() {
@@ -871,20 +702,28 @@ public class Wc1Form extends BaseEntity implements Form, Serializable {
 		this.otherInjuryCause = otherInjuryCause;
 	}
 
-	public String getReportPreparedPhoneExt() {
-		return reportPreparedPhoneExt;
-	}
-
-	public void setReportPreparedPhoneExt(String reportPreparedPhoneExt) {
-		this.reportPreparedPhoneExt = reportPreparedPhoneExt;
-	}
-
 	public Boolean getDobNotAvailable() {
 		return dobNotAvailable;
 	}
 
 	public void setDobNotAvailable(Boolean dobNotAvailable) {
 		this.dobNotAvailable = dobNotAvailable;
+	}
+
+	public boolean isSelect() {
+		return select;
+	}
+
+	public void setSelect(boolean select) {
+		this.select = select;
+	}
+
+	public RadioButtonEnum getIncomeBenefits() {
+		return incomeBenefits;
+	}
+
+	public void setIncomeBenefits(RadioButtonEnum incomeBenefits) {
+		this.incomeBenefits = incomeBenefits;
 	}
 
 	public List<BodyPartType> getBodyPartAffected() {
@@ -894,4 +733,16 @@ public class Wc1Form extends BaseEntity implements Form, Serializable {
 	public void setBodyPartAffected(List<BodyPartType> bodyPartAffected) {
 		this.bodyPartAffected = bodyPartAffected;
 	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	
+	
+
 }

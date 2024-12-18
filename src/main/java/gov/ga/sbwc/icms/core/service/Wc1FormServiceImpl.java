@@ -1,8 +1,10 @@
 package gov.ga.sbwc.icms.core.service;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import gov.ga.sbwc.icms.common.bean.Wc1FormBean;
 import gov.ga.sbwc.icms.common.entity.core.Claim;
 import gov.ga.sbwc.icms.common.entity.core.ClaimDocument;
 import gov.ga.sbwc.icms.common.entity.core.Wc1Form;
@@ -23,6 +25,11 @@ public class Wc1FormServiceImpl {
 	private ClaimDocumentRepository claimDocumentRepository;
 
 	public Wc1Form saveWc1Form(Wc1Form wc1Form) {
+		return wc1FormRepository.save(wc1Form);
+	}
+	public Wc1Form sumbitWc1Form(Wc1FormBean wc1Formbean) {
+		Wc1Form wc1Form = new Wc1Form();
+		BeanUtils.copyProperties(wc1Formbean,wc1Form);
 		return wc1FormRepository.save(wc1Form);
 	}
 

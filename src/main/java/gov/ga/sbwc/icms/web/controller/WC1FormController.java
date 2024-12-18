@@ -19,7 +19,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import gov.ga.sbwc.icms.common.bean.Wc1FormBean;
 import gov.ga.sbwc.icms.common.constants.FormConstants;
+import gov.ga.sbwc.icms.common.dto.claim.ClaimDocumentDTO;
 import gov.ga.sbwc.icms.common.dto.doc.DocumentFileDTO;
 import gov.ga.sbwc.icms.common.dto.form.FormDTO;
 import gov.ga.sbwc.icms.common.dto.form.Wc1FormDTO;
@@ -48,6 +50,7 @@ import gov.ga.sbwc.icms.core.service.ClaimantServiceImpl;
 import gov.ga.sbwc.icms.core.service.ControvertTypeServiceImpl;
 import gov.ga.sbwc.icms.core.service.DisabilityTypeServiceImpl;
 import gov.ga.sbwc.icms.core.service.DocumentServiceImpl;
+import gov.ga.sbwc.icms.core.service.FormBodyPartServiceImpl;
 import gov.ga.sbwc.icms.core.service.InjuryCauseTypeServiceImpl;
 import gov.ga.sbwc.icms.core.service.InjuryTypeServiceImpl;
 import gov.ga.sbwc.icms.core.service.NaicsTypeServiceImpl;
@@ -105,9 +108,12 @@ public class WC1FormController {
 
 	@Autowired
 	private DisabilityTypeServiceImpl disabilityTypeServiceImpl;
-
+	
 	@Autowired
 	private UserProductivityReportServiceImpl userProductivityReportServiceImpl;
+	
+	@Autowired
+	private FormBodyPartServiceImpl formBodyPartServiceImpl;
 
 	@Autowired
 	private AsposeServiceImpl asposeService;
@@ -217,12 +223,6 @@ public class WC1FormController {
 		return bodyPartTypeService.listAllBodyPartTypes();
 	}
 
-	@GetMapping("/getAllBodyPartTypesDescription")
-	@ApiOperation(value = "get all BodyPart Types")
-	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-	public List<String> listAllBodyPartTypesDescription() {
-		return bodyPartTypeService.findAllBodyPartTypeDescriptions();
-	}
 	
 	@GetMapping("/getAllControvertTypes")
 	@ApiOperation(value = "get all Controvert Types")
@@ -280,15 +280,16 @@ public class WC1FormController {
 		String sourceType = SourceTypeEnum.ONLINE.getCode();
 		Claim claim = getClaimById(1705266L);
 //		Document document = documentService.createNewDocument(claim, documentType, sourceType, false);
-//		wc1Form.setId(document.getId());
-//		wc1Form = wc1FormService.saveWc1Form(wc1Form);
+//		wc1FormBean.setId(document.getId());
+//		Wc1Form wc1Form = wc1FormService.sumbitWc1Form(wc1FormBean);
+//		formBodyPartServiceImpl.saveFormBodyParties(document, wc1FormBean.getBodyPartAffected());
 //		claimDocumentService.createCaimDocument(claim, document);
 //		
 ////		List<ClaimParty> claimPartyList = getClaimPartyByClaimId(1665067L);
-////		ClaimDocumentDTO claimDocumentDto = new ClaimDocumentDTO(claim, document);
+//		ClaimDocumentDTO claimDocumentDto = new ClaimDocumentDTO(claim, document);
 
 		Document document = documentService.getDocumentById(9368654L);
-		wc1Form = getWC1FormById(9368654L);
+//		Wc1Form wc1Form = getWC1FormById(9368654L);
 
 		if (StringUtils.isNotBlank(wc1Form.getDaysOff())) {
 			String daysOff = wc1Form.getDaysOff();
@@ -307,8 +308,8 @@ public class WC1FormController {
 			System.out.println("wc1Form.getAffectedBodyType()...." + wc1Form.getAffectedBodyType());
 		}
 		System.out.println("wc1Form.getWageRateFrequency()...."+wc1Form.getWageRateFrequency());
-		FormDTO formDto = new Wc1FormDTO(claim, document, wc1Form, null, null, null, null);
-		documentService.createDocument(claim, document, formDto);
+		FormDTO formDto = new Wc1FormDTO(claim, document, wc1Form, null, null, null, wc1Form.getBodyPartAffected());
+//		documentService.createDocument(claim, document, formDto);
 
 		try {
 			DocumentFileDTO documentFileDTO = asposeService.createForm(claim, document, formDto);
